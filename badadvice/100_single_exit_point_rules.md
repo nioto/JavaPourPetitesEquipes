@@ -1,22 +1,24 @@
-## Single Exit Point Rules
+## Règles de l'Unique Point de Sortie
 
-Some coding standards mandate that all methods should have a single exit point.
+Certains standards de développement obligent que toutes les méthodes ai un unique point de sortie.
 
-Doing so can be damaging, particularly when it is enforced by static analysis.
+Appliquer celà peut être dommageable, particulièrement lorsque celà est imposé par une analyse statique.
 
-## Details
+## Détails
 
-Single exit point is an idea with a long history dating back to the era of liberally applied gotos and spaghetti code.
+L'unique point de sortie est une idée avec une longue histoire datant de l'ère où l'on abusait des gotos et du code spaghetti.
 
+Dans ce context, l'ajout de nouveaux cas dans une fonction était util
+Sachant qu'il n'y avait qu'un endroit de sortie pour une grosse fonction rendait les choses plus faciles à comprendre. 
 In that context, adding constraints on what could happen within a function was helpful. Knowing that there is only one point that a large function can exit from makes it easier to understand.
 
-Many modern functional languages continue to either enforce or encourage single exit points.
+Beaucoup de langages fonctionnels modernes continuent de forcer ou d'encourager un unique point de sortie.
 
-So it must be a good idea to add this constraint to Java right?
+Ce serait donc une bonne idée d'ajout cette contrainte à Java, n'est-ce pas?
 
-Lets look what happens when we are told we must only have one exit point:
+Regardons ce qui arrive quand on nous dit qu'il ne doit y avoir qu'un seul point de sortie :
 
-**Single exit with statements**
+**Sortie unique avec déclarations**
 ```java
 public class Example {
   private int value;
@@ -34,9 +36,9 @@ public class Example {
 }
 ```
 
-If we remove the single exit point constraint we get:
+Si l'on supprime la contrainte de l'unique point de sortie, nous avons:
 
-**Multiple exit**
+**Plusieurs sorties**
 ```java
 public class Example {
   private int value;
@@ -54,17 +56,17 @@ public class Example {
 }
 ```
 
-The multiple exit point version is clearly simpler and easier to comprehend.
+La version avec plusieurs points de sortie est clairement plus simple et plus facile à comprendre.
 
-Trying to apply the single exit point constraint resulted in additional local variables to hold return state. 
+Essayer d'appliquer la contrainte de point de sortie unique conduit à ajouter des variables locales qui maintiennent  l'état du résultat.
 
-So does this mean that single exit point methods are bad?
+Alors, est-ce que celà veut dire que les méthodes à unique point de sortie sont mauvaises?
 
-No.
+Non.
 
-It is possible to write a better single exit version using the `?` operator:
+Il est possible d'écrire une version améliorée de la version à sortie unique en utilisant l'opérateur `?`:
 
-**Single exit with the ? operator**
+**Sortie unique avec l'opérateur ? **
 ```java
 public class Example {
   private int value;
@@ -77,18 +79,19 @@ public class Example {
 }
 ```
 
-We have switched from using a statement (if) to working with expressions (i.e. things that return a value). This allows us to avoid the additional complication and bloat while maintaining a single exit point.
+Nous sommmes passés de l'utilisation de conditions (if) à travailler avec des expressions (càd les choses qui renvoient une valeur). Celà nous a permis d'éviter de gonfler le code et la complication supplémentaire tout en maintenant un unique point de sortie.
 
-Is this version clearer than the multi-exit version? That is debatable and ultimately a matter of personal taste.
+Est-ce que cette version est plus claire que la version à sortie multiple? C'est matière à débat et finalement une question de goût personnel.
 
-The code using `?`  is terse and some will find it harder to understand.
+Le code utilisant `?` est succincte et certains la trouveront plus dur à comprendre.
 
-The multi-exit version is more verbose but its proponents would argue it is easier to comprehend.
+La version à plusieurs sorties est plus verbeuse mais ses partisans diront qu'elle est plus facile à comprendre.
 
-If your personal preference is for the `?` operator version, it still does not follow that the single exit point rule is something you should try to universally apply.
+Si votre préférence va vers la version avec l'opérateur `?`, celà ne veut pas dire que la règle de l'unique point de sortie est quelque chose que vous devriez appliquer de façon universelle.
 
-The most likely result is that you will push people towards writing code like the earlier bloated version of our method. As Java is a largely statement-based language, you will also encounter logic where the multi-exit version is undeniably clearer.
+Le résultat le plus probable est que vous allez pousser les gens à écrire du code verbeux ressemblant à la version précédente de notre méthode. Comme Java est un langage largement basé des instructions, vous rencontrerez également le cas où la version à sorties multiples est indéniablement plus claire.
 
-Martin Fowler and Kent Beck express things nicely in "Refactoring: Improving the Design of Existing Code"
+Martin Fowler et Kent Beck expliquent les choses clairement dans le livre "Refactoring: Improving the Design of Existing Code"
 
-> ". . . one exit point is really not a useful rule. Clarity is the key principle: If the method is clearer with one exit point, use one exit point; otherwise don't"
+
+> ". . . l'unique point de sortie n'est pas vraiment une règle utile. La clareté est le point clé: Si la méthode est plus claire avec un unique point de sortie, utilise cette règle; autrement ne le fait pas"
