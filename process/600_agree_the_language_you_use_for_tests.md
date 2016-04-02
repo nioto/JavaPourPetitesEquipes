@@ -2,37 +2,41 @@
 
 ### La Pyramide des Tests
 
-Unfortunately, the language of testing is heavily overloaded, with different communities referring to different things by the same names.
+Malheureusement, le langage utilisé pour les tests est surchargé, avec différentes communités se référant a des choses différentes utilisant les mêmes noms.
 
-The testing pyramid is a widely recognized diagram of how testing should be approached. 
+La pyramide des tests est un diagramme largement reconnu de la façon dont les tests doivent être abordés.
 
-It shows large numbers of unit tests at the bottom, with a smaller number of integration tests above them and a yet smaller number of system tests at the peak. Often, some clouds of manual testing are added at the top.
+Il montre un grand nombre de tests unitaires en bas, avec un plus petit nombre de tests unitaires au dessu et encore un plus petit nombre de tests système à sa pointe. Souvent, des nuages de tests manuels sont ajoutés au sommet.
 
-![The testing pyramid](../generated/images/svg/pyramid.png)
 
-This diagram has probably been drawn thousands of times. Although unit tests will appear at the bottom of each version, the words used at the other levels will vary wildly.
+![La pyramide des tests](../generated/images/svg/pyramid.png)
 
-Even when the same words are used the meanings attached to them might be different. 
+Ce diagramme a sans doute été dessiné des milliers de fois. Bien que les tests unitaires apparaissent à la base de caque version, le vocabulaire aux autres niveaux peut varier considérament.
 
-Although people might nod when you discuss "unit tests", "integration tests", "system tests", "end 2 end tests", "service tests", there is no guarantee that they are thinking of the same thing as you.
+Bien que les mêmes mots soit utilisés leur sens peut différer.
 
-Depending on who you speak to, a "unit test" might be anything from a word document full of instructions, "any test written by a programmer", through to various formal (but by no means authoritative) definitions that appeared in text books.
+Bien que les gens peuvent aquiescer quand vous discutez "tests unitaires", "tests d'intégration", "tests système", "tests de bout à bout", "tests de service", il n'y a pas de garantie qu'ils pensent la même chose que vous.
 
-The number of possible meanings of "integration test" is even greater.
+En fonction de votre interlocuteur, un "test unitaire" peut être n'importe quoi depuis un document word pleine d'instructions, "tout test écrit par un développeur", via diverses définitions formelles (mais en aucun cas faisant autorité) qui apparaissent dans les livres.
 
-### Unit Tests
+Le nombre de sens possibles pour "tests d'intégration" est encore plus grand.
 
-A fairly tight definition of unit test now in common use in the Java community. We recommend that you and your team use this definition. 
+### Les Tests Unitaires
 
-To be a unit test, a test must be:
+Une définition assez complète d'un test unitaire est largement utilisé dans la communité Java. Nous préconisons que vous et votre équipe utilise cette définition.
 
-* Fast (milliseconds or less)
-* Isolated (test only one unit)
-* Repeatable (able to be run millions of times on any machine with the same result)
-* Self verifying (either passes or fails)
-* Timely (written first)
+Pour être un test unitaire, un test doit être :
 
-Note: Although writing your tests first is often a very good idea, a test that meets the other criteria is still a unit test regardless of when it was written. 
+* Rapide (millisecondes ou moins)
+* Isolé (ne tester qu'une chose)
+* Répétable (capable d'être exécuté des millions de fois sur toute machine avec le même résultat)
+* Auto vérifiant (ça passe ou àa échoue)
+* En temps et en heure (écrit en premier)
+
+
+Note: Bien qu'écrire vos test en premier est souvent ujne bonn idée, un test qui vérifie les autres critères est quand même un test unitaire indépendamment de quand il a été écrit.
+
+
 
 When we talk about "unit" testing, what constitutes a *unit* isn't necessarily that obvious.
 
