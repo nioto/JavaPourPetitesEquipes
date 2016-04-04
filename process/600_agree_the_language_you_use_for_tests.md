@@ -1,4 +1,4 @@
-## Convenir du Langage que vous Utilisez pour les Lests
+## Convenir d'un Langage commune que vous Utiliserez pour les Lests
 
 ### La Pyramide des Tests
 
