@@ -1,16 +1,16 @@
-## Avoid Floats and Doubles
+## Evitez les Floats et les Doubles
 
-### Summary
+### Sommaire
 
-Avoid using floats and doubles (both the primitives and their wrappers). 
+Evitez d'utiliser les floats et les doubles (les types primitifs et leur wrappers).
 
-### Detail
+### Détail
 
-Floats and doubles introduce a minefield of rounding and comparison issues. While they are a sensible choice for some domains where you do not care about rounding errors, integers or `BigDecimal` are usually a better choice for server-side business code.
+Les floats et les doubles introduisent un champs de mines avec les probèmes d'arrondis et de comparaisons. Bien qu'ils soient un choix raisonnable pour certains domaines où vous ne tenez pas compte des erreurs d'arrondis, les types Integer et `BigDecimal` sont de meilleur candidat pour du code professionnel côté serveur.
 
-The core issue is that floating point numbers are not able to represent many numbers (e.g. `0.1`).
+Le problème essentiel est que les nombres à virgule flotante ne sont pas capables de représenter certains nombres ( par ex `0.1`)
 
-This leads to unexpected results that may not be caught by simple test cases
+Cela entraîne des résultats inattendus qui auraient pu être détectés par de simples tests.
 
 ```java
     double balance = 2.00;
@@ -23,7 +23,7 @@ This leads to unexpected results that may not be caught by simple test cases
     // Gives After 6 transactions balance is 1.4 :-)
 ```
 
-But
+Mais
 
 ```java
     double balance = 2.00;
@@ -36,7 +36,7 @@ But
     // Gives After 7 transactions balance is 1.2999999999999998 :-(
 ```
 
-This simplest solution in this case would be to replace the floats with integer values (i.e. track the balance in units of cents rather than dollars), but the code could also be re-written to use `BigDecimal`.
+La solution la plus simple dans ce cas aurait été de remplacer les floats par valeurs entières ( càd conserver la somme en unités de centimes plutôt qu'en euros), mais le code peut aussi être ré-écrit en utilisant `BigDecimal`.
 
 ```java
     BigDecimal balance = new BigDecimal("2.00");
@@ -51,7 +51,7 @@ This simplest solution in this case would be to replace the floats with integer 
    // Gives After 7 transactions balance is 1.30 :-)
 ```
 
-Note that, although `BigDecimal` can be constructed from a float, this takes us back to where we started.
+On remarquera que `BigDecimal` peut être construit en utilisant un float, mais celà nous ramènera au problème précédent.
 
 
 ```java

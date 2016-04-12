@@ -1,13 +1,13 @@
-## Don't Use the Assert Keyword
+## N'Utilisez pas le Mot-Clé Assert
 
-### Summary
+### Sommaire
 
-Do not use the assert keyword.
+N'utilisez pas le mot-clé assert
 
-### Details
+### Détails
 
-Assertions written with the assert keyword are only enabled when a JVM flag is set. This is not what you want.
+Les assertions écrites avec le mot-clé assert ne sont prises en compte que lorsqu'un flag est actif dans la JVM. Ce n'est pas ce que vous voulez.
 
-For production code, instead use libraries such as Guava's preconditions that are guaranteed to trigger.
+Pour du code en production, utilisez plutôt des bibliothèques telles que les préconditions de Guava qui sont assurées d'être déclenchées.
 
-If you have the assert keyword in your test code ask yourself how it is that you never noticed that your tests could not fail. After your period of self-reflection, replace the asserts with calls to an assertion library such as AssertJ.
+Si vous avez le mot-clé assert dans votre code de tests, demandez-vous comment se fait-il que vous n'ayez pas remarqué que vos tests ne peuvent échoués. Après votre période de réflexion, remplacez les assert par des appels à une bibliothèque d'assertion telle que AsserJ.

@@ -1,38 +1,39 @@
-## Don't use Reflection
+## N'Utilisez pas la Réflection
 
-### Summary
+### Sommaire
 
-Do not use reflection in your code (i.e. anything from the `java.lang.reflect` package).
+N'utilisez pas la réflection dans votre code (càd rien qui ne provienne du package `java.lang.reflect`).
 
-### Details
+### Détails
 
-Reflection is a powerful tool; it allows Java to do things that would otherwise be either impossible or require large amounts of boilerplate code. 
+La réflection est un outil puissant; il permet à Java de faire des choses qui autrement serait impossible ou nécessiterait une importante quantité de code bateau.
 
-But, while it is sometimes useful when creating a framework or library it is unlikely to be a good way to solve the types of problem we encounter in normal server-side application code.
+Mais, bein qu'elle soit parfois utile quand on crée un framework ou une bibliothèque, il est peu problable qu'elle soit la bonne solution pour résoudre le genre de problèmes que nous rencontrons dans un code classique.
 
-So why would we want to avoid using a powerful tool that Java provides?
+Alors pourquoi vouloir éviter un outil aussi puissant fournit par Java?
 
-Reflection has three main drawbacks:
+La réflection a trois inconvénients:
 
-#### Loss of Compile Time Safety
+#### Perte du processus de sécurité lors de la compilation
 
-Reflection moves errors from compile time to runtime - this is a Bad Thing &trade;
+La réflection transfert les erreurs de compilation vers l'éxécution. - c'est une Mauvaise Chose &trade;
 
-The compiler is our first form of defense against defects and the type system is one of the most effective tools we have to document our code. We should not throw these things away lightly.
+Le compilateur est la première forme de défense contre les défauts et le système de types est l'outil le plus efficace dont nous disposons pour documenter notre code. Nous ne devrions pas jeter à la corbeille ces deux choses de façon désinvolte.
 
-#### Loss of Refactor Safety
+#### Perte de la Sécurité dans le Refactoring
 
-Refactoring and code analysis tools are blind to reflection.
+Le refactoring et les outils d'analyse de code sont aveugles face à la réflection.
 
-Although they may make some attempt to take it into account, the additional possibilities reflection creates for how a program might behave means the tools can no longer provide rigorous guarantees that they have understood the program. In the presence of reflection refactorings that would otherwise be safe may change program and analysis tools may report incorrect results.
+Bien qu'ils puissent essayer de la prendre en compte, les possibilités apportées par la réflection sur le comportement d'un programme font qu'ils ne peuvent garantir de façon rigoureuse qu'ils ont compris le programme. En présence de réflection, les refactorings qui autrement seraient sûrs, peuvent changer le comportement du programme et de l'outil d'analyse.
 
-#### Harder Code Comprehension
+#### Compréhension du Code plus Difficile
 
-In the same way that Reflection makes it harder for automated tools to understand code, it also makes it harder for humans to understand code.
+Dans la même manière que la réflection rend difficile la compréhension du code par des outils, elle la rend également plus difficile pour des humains.
 
-Reflection introduces surprises.
+La réflection amènes des surprises.
 
-*This method is never called, I can safely delete it.* Oh. Reflection.
 
-*I can safely change the behavior of this private method as I know where it is called from.* Oh. Reflection.
+*Cette méthode n'est jamais appelée, je peux sans danger la supprimer.* Oh. J'ai oublié la réflection.
+
+*Je peux sans danger changer le comportement de cette méthode privée comme je connais d'où elle est appelée.* Oh. J'ai oublié la réflection.
 

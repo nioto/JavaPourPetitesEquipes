@@ -1,19 +1,19 @@
-## Do Not Use Magic Numbers
+## N'Utilisez pas de Nombres Magiques
 
-### Summary
+### Sommaire
 
-Magic numbers should be replaced with well-named constants that describe their meaning.
+Les nombres magiques devraient être remplacée par des constantes correctement nommés suivant leur signification.
 
-#### Detail 
+#### Détail 
 
-Placing numeric or string literals directly into source code causes two problems:
+Mettre des chaines de caractères ou des nombres directement dans le code source provoque deux problèmes:
 
-1. It is unlikely that the **meaning** of the literal will be clear
-2. If the value changes updates are required where ever the literal has been duplicated
+1. Il est peu probable que la **signification** de la valeur soit claire
+2. Si la valeur change, des modifications sont nécessaires partout où ces valeurs ont été dupliquées
 
-Literals should therefore be replaced with well-named constants methods and Enums.
+Les valeurs devraient être placées dans des constantes correctement nommées et des Enums.
 
-**Bad**
+**Mauvais**
 ```java
 public void fnord(int i) {
   if (i == 1) {
@@ -22,7 +22,7 @@ public void fnord(int i) {
 }
 ```
 
-**Better**
+**Mieux**
 ```java
 public void fnord(int i) {
   if (i == VALID) {
@@ -32,7 +32,7 @@ public void fnord(int i) {
 ```
 
 
-**You've missed the point**
+**T'as pas tout compris**
 ```java
 public void fnord(int i) {
   if (i == ONE) {
@@ -41,9 +41,9 @@ public void fnord(int i) {
 }
 ```
 
-If the constants you extract relate to an identifiable concept, create an Enum instead:
+Si les constantes ainsi extraites ont un rapport avec un concept identifiable, créez plutôt un Enum:
 
-**Good**
+**Bon**
 ```java
 public void fnord(FnordStatus status) {
   if (status == FnordStatus.VALID) {
@@ -52,19 +52,18 @@ public void fnord(FnordStatus status) {
 }
 ```
 
-Some coding standards make statements such as "0 and 1 are exceptions to this rule". This is, however, an oversimplification.
+Des normes de codage rendent des déclarations telles "0 et 1 sont des exceptions à la règle". C'est, cependant , une simplification excessive.
 
-Sometimes 0 and 1 will have a clear local meaning as they are being used as part of low level code e.g.:
+Parfois 0 et 1 auront un sens local très clair en étant utilisés dans du code de bas niveau, par ex:
 
 ```java
   if (list.size() == 0) {...}
 ```
 
-But 0 and 1 may also also have domain-specific values that should be extracted into constants like any other literal.
+Mais 0 et 1 peuvent aussi est des valeurs spécifiques au domaine qui devraient être placées dans des constantes comme les autres valeurs.
 
-Server-side Java can also often be re-written in a cleaner fashion without the use of numeric literals, e.g.:
+Du code Java côté serveur peut souvent être ré-écrit d'une façon plus claire sans utilisé de valeurs litérales, par ex:
 
 ```java
   if (list.isEmpty()) {...}
 ```
-

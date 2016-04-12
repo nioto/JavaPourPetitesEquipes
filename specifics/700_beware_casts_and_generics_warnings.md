@@ -91,11 +91,11 @@ for (Object each : results) {
 }
 ```
 
-Normally, objects placed into a collection should be of a single type or of multiple types related by a common superclass or interface.   
+En principe, les objets placés dans une collection devraient être d'un type unique ou de différents types mais partageant une classe commune ou une interface.
 
-Here, unrelated types have been placed into the same list with a String used to communicate some sort of information about how "processing" of a widget has failed.
+Ici, des types non apparentés sont placés dans une même list avec une String utilisée pour communiquer une sorte d'information indiquant comment "procéder" dans le cas où un Widget n'a pas pu être traité.
 
-The classic OO fix for this code would be to introduce a `ProcessResult` interface with two concrete implementations.
+La correction classique -en orienté objet- pour ce code est d'introduire une interface `ProcessResult` avec deux implémentations.
 
 ```java
 interface ProcessResult {
@@ -126,7 +126,7 @@ class Failure implements ProcessResult {
   
 ```
 
-The original code can then be fixed as follows:
+Le code original peut être corrigé en:
 
 ```java
 List<Widget> widgets = getWidgets();
@@ -138,18 +138,18 @@ for (ProcessResult each : results) {
 }
 ```
 
-Or, more concisely in Java 8:
+Ou, de façon plus concise en Java 8:
 
 ```java
  List<ProcessResult> results = process(widgets);
  results.stream().forEach(ProcessResult::doSomething); 
 ```
 
-It may also sometimes make sense to use a disjoint union type aka `Either`.
+Il peut être parfois judicieux d'utiliser un type d'union disjointe soit `Either`.
 
-This technique can be particularly useful as an interim step when reworking legacy code that uses mixed type raw collections, but can also be a sensible approach when dealing with error conditions.
+Cette technique peut être particulièrement utile dans un premier pas vers une ré-écriture de code hérité qui mixe des collections de types bruts, mais peut aussi être une approche possible lorsqu'on traite avec des cas d'erreurs.
 
-Unfortunately, Java does not provide an `Either` type out of the box but at its simplest it looks something like:
+Malheureusement, Java ne fournit pas un type `Either` de base mais il est simple à implémenter, par exemple :
 
 ```java
 public class Either<L,R> {
@@ -184,9 +184,9 @@ public class Either<L,R> {
 }
 ```
 
-Libraries such as Atlassian's Fugue provide implementations with much richer functionality.
+Des bibliothèques telles que Fugue d'Atlassian fournissent des implémentations bien pluys riches en fonctionnalité.
 
-Using the simplistic form of `Either` with Java 7 the code could be re-written as:
+En utilisant la form simpliste de `Either` avec Java 7, le code serait ré-écrit de la sorte:
 
 ```java
 List<Widget> widgets = getWidgets();
@@ -201,20 +201,20 @@ for (Either<ProcessResult,String> each : results) {
 }
 ```
 
-While most Java programmers will prefer the earlier OO version, this version has two advantages:
+Alors que la plupart des programmeurs Java préféreront la version OO précédente, cette version a deux avantages:
 
-1. It requires no change to the *structure* of the original code - all we have really done is make the types document what is happening
-2. It requires less code
+1. Elle ne nécessite pas de changement dans la *structure* du code original - tout ce que nous avons fait est rendre les types plus explicites.
+2. elle nécessite moins de code
 
-This pattern can help quickly tame a legacy code base that is difficult to comprehend.
+Ce pattern peut aider à rapidement apprivoiser une base de code existant qui serait difficile à comprendre.
 
-#### Limits of the Type System
+#### Les Limites du Système de Type
 
-Sometimes we do reach the limits of Java's type system and need to cast. 
+Parfois nous atteignons les limites du système de types de Java et nous avons besoin de faire des cast.
 
-Before we do this, we must make certain that the cast is safe and there is no better solution to our problem. 
+Avant de procéder ainsi, nous devons être certain que le cast est sûr et qu'il n'y a pas demeilleure solution à notre problème.
 
-Similarly, we may need to sometimes suppress a Generics warning, this can be done by annotating with `@SuppressWarnings` e.g. 
+De même, parfois nous avons besoin de supprimer un Generics warning, cela peut être fait en annotant avec `@SuppressWarnings` par ex. 
 
 ```java
 @SuppressWarnings("unchecked")
@@ -228,5 +228,5 @@ Object fromXml(final String xml) {
 
 ```
 
-Here, the compiler has no way of knowing what type has been serialized to the String. Hopefully the programmer does or else a runtime error will occur.
+Ici, le compilateur n'a pas de moyen de connaître quel type a été sérialisé en String. Heureusement le programmeur lui sait ou une erreur Runtime sera levée.
 
