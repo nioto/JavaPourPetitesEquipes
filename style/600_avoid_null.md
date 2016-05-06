@@ -28,52 +28,52 @@ Les stratégies pour éviter null comprennent:
 
 ### Le modèle Null Object
 
+Le modèle null object est l'approche classique en OO d'éviter null. Vous devriez l'utiliser quand vous pensez avoir un dépendance que vous pensez optionnelle.
 
-The null object pattern is the classic OO approach to avoiding null. You should use it whenever you think you have a dependency that you think is optional.
+Le modèle est très simple, il suffit de fournir une implémentation de l'interface qui ne fait "rien" ou à un effet neutre. Elle peut être sans risque référencée par ses clients, mais inutile de vérifier si elle est null.
 
-The pattern is very simple, just provide an implementation of the interface that that does "nothing" or has a neutral behavior. This can then be safely referenced by it's clients, with no need to check for null.
 
 ### Type-Safe Nulls (Optional)
 
-The type-safe null pattern is familiar in most functional programming languages where is variously known as Maybe, Option or Optional. Java 8 finally adds an Optional type, but implementations are available for earlier versions via Guava and other libraries.
+Le modèle Type-safe null est connu dans la plupart des langages de programmation fonctionnelle où il est connu sous les noms Peut-être, Option ou Facultatif. Java 8 a enfin introduit un type Optional, mais des implémentations sont disponibles pour les versions précédentes via Guava ou d'autres bibliothèques.
 
-It is a simple pattern. An Optional is basically just a box that can hold either one or zero values. You can check if the box is empty (using `isPresent`) and retrieve its value via a get method.
+C'est un modèle simple. Un Optional est simplement une boîte qui peut contenir soit une soit zéro valeurs. Vous pouvez vérifier si la boite est vide (en utilisant `isPresent`) et récupérer sa valeur via une méthode get.
 
-Optional should be used whenever a public method might not return a value as part of normal program flow.
+Optional devrait être utilisé quand une méthode publique peut ne pas retourner une valeur dans le cours normal d'un programme.
 
-If you call get on an empty Optional, it will throw a `NoSuchElementException`.
+Si vous appelez get sur un Optional vide, celà lèvera l'exception `NoSuchElementException`.
 
-It might not be immediately obvious what value Optional provides over just using null. If you need to check that an Optional has something in it before calling `get`, how is this different from checking a value is not null to avoid a `NullPointerException`?
+Il n'est pas flagrant de voir ce qu'apporte une valeur Optional sur l'usage de null. Si vous avez besoin de vérifier si un Optional a une valeur avant d'appeler `get`, en quoi celà est différent de vérifier si la valeur est null pour éviter un `NullPointerException`?
 
-There are several important differences.
+Il y plusieurs différences importantes.
 
-Firstly, if your method declares that it returns `Optional<Person>` then you can instantly see from the type signature that it might not return a value. If it only returned `Person` you would only know that it might return null if you looked at the source, tests or documentation.
+Premièrement, si votre méthode déclares qu'elle retourne un type `Optional<Person>` alors vous pouvez voir instantanément depuis cette signature qu'elle peut ne pas retourner de valeur. Si elle ne retournait que le type `Person`, vous ne sauriez qu'elle peut retourner null qu'en parcourant la documentation, les tests ou la documentation.
 
-Equally important, if you know that you always return `Optional` within your codebase when something might not be present, then you know at a glance that a method returning `Person` will always return a value and will never return null.
+De même importance, si vous savez que l'usage de `Optional`est utilisé lorsque quelque chose peut ne pas être présent, alors vous savez instantanément que si vous retournez `Person` alors la valeur ne sera jamais null.
 
-Finally, the preferred way to use Optionals is not to call the get method or to explicitly check if it contains a value. Instead the values that are contained (or not contained) in an Optional can be safely  mapped, consumed and filtered by various method on the class.
+Enfin, la meilleure façon d'utiliser Optionals est de ne pas appeler la méthode get ou d'explicitement vérifier qu'il contient une valeur. Les valeurs qui sont contenues (ou pas) dans un Optional peut être de façon sure mappées, consommées et filtrées par diverses méhodes de la classe.
 
-In the simplest case a possibly empty Optional can be accessed by calling the `orElse` method which takes a default value to use if the Optional is empty.
+Dans des cas simples, une possibilité est donnée pour les Optional vides d'être accédés par l'appel de la méthode `orElse` qui prend une valeur par défaut à renvoyer si l'Optional est vide.
 
-As mentioned, the sweet spot for using Optionals is for the return types for methods. They should not generally be held as fields (use the null object pattern here instead) or passed to public methods (instead provide overloaded versions that do not require the parameter).
+Comme indiqué, la meilleure façon d'utiliser les Optional est pour le type retour des méthodes. Ils ne devraient pas être utilisés comme champs (utilisez le Null Pattern à la place) ou passés en paramètres de méthodes publiques (à la place, fournissez des versions qui ne nécessitent pas de paramètres).
 
-One objection that is sometimes raised by Java programmers encountering Optional for the first time is that it is possible for an Optional to be null itself. While this is true, returning a null Optional from a method is a perverse thing to do and should be considered a coding error.
+Une objection qui revient quelques fois de la part des programmeurs Java qui découvre Optional, est qu'il est possible pour un Optional d'être null. Bien que celà soit vrai, retourner un Optional null pour une méthode est une chose perverse à faire et devrait être considéré comme une erreur de coding.
 
-Static analysis rules exists that can check for code that returns null Optionals.
+Des règles d'analyses statistiques existent pour vérifier si le code retourne des Optionals null.
 
-### Design by Contract
+### Conception par Contrat
 
-We wish for all code that we control to be able to ignore the existence of null (unless it interfaces with some third party code that forces us to consider it). 
+Nous aimerions que tout le code que nous controlons puisse ignorer l'éxistence de null ( à moins qu'il ne s'interface avec des bibliothèques tierces qui nous forcent à le prendre en compte)
 
-`Objects.requireNonNull` can be used to add a runtime assertion that null has not been passed to a method.
+`Objects.requireNonNull` peut être utilisé pour ajouter une assertion à l'éxécution afin de s'assurer que null ne soit pas passer en paramètre à une méthode.
 
-Because your core code should generally assume that null will never be passed around, there is little value in documenting this behavior with tests; assertions add value because they ensure that an error occurs close to the point where the mistake was made.
+Parce que votre code ne devrait jamais supposer que null ne sera jamais présent, il y une plus-value en documentant ce comportement par des tests; les assertions ajoute de la valeur car elles assurent que l'erreur apparaitra proche du point où a été faite la faute.
 
-We can also check this contract at build time.
+Nous pouvons aussi tester ce contrat à la compilation.
 
-JSR-305 provides annotations that can be used to declare where null is acceptable. 
+JSR-305 fournit des annotations qui peuvent être utilisées pour déclarer où null est acceptable.
 
-Although JSR-305 is dormant, and shows no signs of being incorporated into Java in the near future, the annotations are available at the maven co-ordinates :-
+Bien que cette spécification soit en sommeil, et il n'y pas de signe qu'elle sera incorporée dans Java dans un futur proche, les annotations sont disponibles dans maven via :-
 
 ```xml
 <dependency>
@@ -83,23 +83,23 @@ Although JSR-305 is dormant, and shows no signs of being incorporated into Java 
 </dependency>
 ```
 
-They are supported by several static analysis tools including :-
+Elles sont supportées par plusieurs outils d'analyse statique tels que ;-
 
 * [Findbugs](http://findbugs.sourceforge.net/)
 * [Error Prone](http://errorprone.info/)
 
-These can be configured to break the build when null is passed as a parameter where we do not expect it.
+Ces derniers peuvent être configurés pour casser le build quand null est passé en tant que paramètre alors qu'on ne l'y attend pas.
 
-Annotating every class, method or parameter with `@Nonnull` would quickly become tedious and it would be debatable whether the gain would be worth the amount of noise this would generate.
+Annoter toutes les classes, méthodes ou paramètres avec `@Notnull` deviendrait rapidement fastidieux et le problème serait de savoir si le gain vaut la quantité de bruit introduit.
 
-Fortunately, it is possible to make `@Nonnull` the default by annotating a package in its package-info.java file as follows
+Heureusement, il est possible de rendre `@Notnull` le comportement par défaut en annontant le package dans le fichier package-info.java comme ceci:
 
 ```java
 @javax.annotation.ParametersAreNonnullByDefault
 package com.example.somepackage ;
 ```
 
-Sadly, sub-packages do not inherit their parent's annotations, so a package-info.java file must be created for each package.
+Malheureusement, les sous packages n'héritent pas des annotations de leur parent, donc un fichier package-info.java doit être créé pour chaque package.
 
-Once non null parameters have been made the default behavior, any parameters that do accept null can be annotated with `@Nullable`.
+Une fois que le comportement par défaut est de n'avoir que nes paramètres non null, tout paramètre qui doit supporter null peut être annoté par `@Nullable`.
 
