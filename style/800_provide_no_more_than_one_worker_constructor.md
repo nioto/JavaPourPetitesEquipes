@@ -1,16 +1,16 @@
-## Provide no More Than One Worker Constructor
+## Ne Fournisser qu'un Seul Constructeur Fonctionnel
 
-### Summary
+### Sommaire
 
-Although a class may provide many constructors, only one should write to fields and initialise the class.
+Bien qu'une classe puisse fournir plusieurs constructeurs, un seul devrait affecter les champs et initialiser la classe.
 
-### Details
+### Détails
 
-Having a single place where fields are assigned during construction makes it easy to understand the states that class can be constructed in. 
+Avoir un seul endroit où les champs sont assignés durant la construction rend plus facile la compréhension des états que cette classe peut avoir à la construction.
 
-Classes should not provide multiple constructors that set fields.
+Les classes ne devraient pas avoir plusieurs constructions qui renseignent les champs.
 
-**Bad**
+**Mauvais**
 ```java
 public class Foo {
   private final String a;
@@ -36,13 +36,14 @@ public class Foo {
   }
 }
 ```
-The duplication of values in the above code could be removed but it would remain confusing because the concern of initializing the class is spread across three locations. 
+La duplication des valeurs dans le code précédent peut être supprimé mais celà resterait confus car l'initialisation de la classe est répartie en trois endroits.
 
-If more fields were to be added, it would be easy to forget to initialize them in the existing constructors. 
+Si d'autres champs venaient à être ajoutés, il serait facile d'oublier de les initialiser dans les constructeurs déjà présents.
 
-Fortunately, we have made all fields final so this would give a compilation error. If the class was mutable, we would have a bug to discover at runtime.
+Heureusement, nous avons rendu les champs final donc celà donnerait une erreur à la compilation? Si la classe était mutable, nous aurioins un bug à investiguer à l'éxécution.
 
-**Better**
+
+**Mieux**
 ```java
 public class Foo {
   private final String a;
@@ -69,10 +70,9 @@ public class Foo {
 }
 ```
 
-Fields are now only written in one location, resulting in less duplication.
+Les champs sont maintenant renseignés à un seul endroit, résultant en moins de duplication.
 
-We can also see at a glance that `Foo` cannot be constructed with null values. In the previous version, this could only be determined by scanning three different locations.
+Nous pouvons aussi voir en un coup d'oeil que `Foo` ne peut être construite avec des valeurs null. Dans la version précédente, celà n'aurait pu être vu qu'en parcourant trois endroits différents.
 
-Following this pattern, it is difficult to forget to set a field even if it is non-final.
-
+En suivant ce modèle, il est difficile d'oublier de reseigner un champs même s'il est non-final.
 

@@ -1,12 +1,12 @@
-## Prefer Immutable Objects
+## Préférer les Objets Immutables
 
-### Summary
+### Sommaire
 
-Where possible, create objects that cannot be changed - especially if those objects will be long-lived or globally accessible.
+Quand c'est possible, privilégiez la création d'objets qui ne peuvent changer - spécialement si ces objets ont une longue durée de vie ou sont accessibles globalement.
 
-### Details
+### Détails
 
-Mutable state makes programs harder to understand and maintain.
+Des états variabels rendent les programmes plus difficile à comprendre et à maintenir.
 
 When objects are short-lived, and do not leave method scope, mutable state causes few problems. Writes and reads will be close together and there will be a clear order in which this happens.
 

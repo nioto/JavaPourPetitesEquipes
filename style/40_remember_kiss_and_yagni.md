@@ -1,48 +1,49 @@
-## Remember KISS and YAGNI
+## Se Souvenir de KISS et YAGNI
 
-### Summary
+### Sommaire
 
-Keep your design as simple as possible. 
+Conserver votre design aussi simple que possible.
 
-Create only the functionality you need now - not what you think you might need in the future.
+Ne créer que les fonctionnalités dont vous avez besoin maintenant - pas ce que vous pensez avoir besoin dans le futur.
 
-### Details
 
-The KISS (Keep It Simple, Stupid) and YAGNI (You Ain't Going To Need It) acronyms provide good advice that is worth remembering while coding.
+### Détails
 
-KISS advises that we keep our code and designs as simple as possible.  
+Les acronymes KISS (Keep It Simple, Stupid) and YAGNI (You Ain't Going To Need It) fournissent de bons conseils qu'il est bon de se souvenir quand on code.
 
-Few people would disagree with this, but unfortunately it is not always obvious what *simple* means.
+KISS conseille de garder le code et le design aussi simple que possible.
 
-Given two solutions to a problem which one is simpler?
+Peu de personne ne serait pas d'accord, mais malheureusement il n'est pas évident de définir *simple*.
 
-* The one with the least lines of code?
-* The one with the least number of classes?
-* The one that uses fewer third party dependencies?
-* The one with fewer branch statements?
-* The one where the logic is most explicit?
-* The one which is consistent with a solution used elsewhere?
+Etant donné deux solutions à un problème laquelle est la plus simple?
 
-All of the above are reasonable definitions of *simple*. None of them is the single definition always makes sense to follow.
+* Celle avec le moins de lignes de code?
+* Celle avec le moins de classes?
+* Celle qui nécessite le moins de bibliothèques tierces?
+* Celle qui utilise le moins de conditions? //* The one with fewer branch statements?*************//
+* Celle où la logique est la plus explicite?
+* Celle qui est consistante avec une solution utilisée ailleurs?
 
-Recognizing simple isn't easy and keeping things simple takes a lot of work. 
+Toutes ces définitions sont raisonnable pour définir *simple*. Aucune d'entre elles n'est la définition qu'il est toujours judicieux de suivre.
 
-If we could somehow measure the complexity of our software, we would find that there is some minimum value that each piece of software must contain. 
+Reconnaitre que simple n'est pas facile et conserver les choses simples requiert beaucoup de travail.
 
-If the software were any simpler, then it would be less functional. 
+Si nous pouvions mesurer la complexité de notre logiciel, nous constaterions qu'il y a une valeur minimale que chaque morceau du logiciel doit contenir.
 
-Real programs will always contain this *inherent complexity* plus a bit. This extra complexity is the *accidental complexity* we have added because we are less than perfect.  
+Si le logiciel était plus simple, alors il serait moins fonctionnel. 
 
-Telling accidental complexity apart from inherent complexity is of course also hard. 
+Les vrais programmes auront toujours cette *compléxité inhérente* avec un petit plus. Cette compléxité en plus est la *compléxité accidentelle* que nous ajoutons car nous ne sommes pas parfaits.
 
-Fortunately YAGNI gives us some useful advice on how to keep things simple without having to tell accidental and inherent complexity apart.
+Distinguer la compléxité accidentelle de la compléxité inhérente est bien sûr difficile.
 
-The more a system does, the higher it's overall complexity will be. If we make a system that does less, it will be simpler - it will have less *inherent complexity* and less *accidental complexity*
+Heureusement YAGNI nous donne des conseils utiles sur comment garder les choses simples sans avoir à distinguer les compléxité accidentelle et inhérente.
 
-Your goal is, therefore, to create the minimum amount of functionality that solves the problems you have right **now**.
+Plus un système fait de chosees, plus grande sera sa compléxité. Si nous faisons un système qui fait moins, il sera plus simple - il aura moins de *compléxité inhérente* ainsi que moins de *compléxité accidentelle*.
 
-* Don't implement things because you think you might need them later. Implement in the future if you need it.
-* Don't try and make things "flexible" or "configurable". Make them do just what they need to do - parameterize them at the point you have a need to do so.
+Votre but est, par conséquent, de créer le nombre de fonctionnalités minimal qui résoud le problème que vous avez **maintenant**.
 
-If you create more than the minimum amount of functionality, you will have more code to debug, understand and maintain from that point forward until someone has the confidence to delete it.
+* N'implémentez de choses dont vous pensez avoir besoin plus tard. Implémentez les dans le futur si vous en avez besoin.
+* N'essayez pas de rendre les choses "flexibles" ou "configurables". Faites les faire ce qu'elles doivent faire - paramétrez-les que si vous en avez besoin.
+
+Si vous créez plus que la quantité minimume de fonctionnalités, vous aurez plus de code à debugger, comprendre et maintenir à partir de là jusqu'à ce que quelqu'un est le courage de le supprimer.
 
