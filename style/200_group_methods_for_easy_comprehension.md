@@ -6,7 +6,7 @@ Les méthodes publiques d'une classe devraient apparaitre en haut du fichier, le
 
 En plus d'être triées par visibilité, elles devraient être ordonnées par un flux logique.
 
-### Détail 
+### Détails
 
 Ce plan veut atteindre deux objectifs:
 
@@ -19,7 +19,7 @@ Ces deux objectifs entrent clairement en conflit car grouper les méthodes de l'
 
 Des questions se poseront sur l'emplacement "correct" d'une méthode si elle est appelée depuis plusieurs endroits ou a des relations récursives. Il n'y a pas, bien sûr, de réponse unique et l'ordre qui suit le second objectif devrait être privilégié.
 
-Les constructeurs et les fabriques statiques devraient être placés en début de classe. Le fait qu'une classe est statique ne devrait pas influencé sont enplacement dans le code.
+Les constructeurs et les fabriques statiques devraient être placés en début de classe. Le fait qu'une classe est statique ne devrait pas influencé son enplacement dans le code.
 
 
 **Exemple**
@@ -68,4 +68,4 @@ public class Layout {
 
 ```
 
-Les champs devraient toujours être placé au sommet de la classe avant toute méthode.
+Les champs devraient toujours être placés au sommet de la classe avant toute méthode.
